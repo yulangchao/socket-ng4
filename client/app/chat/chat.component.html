@@ -11,7 +11,7 @@
         <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">
         Online {{user.length}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li *ngFor="let client of user">{{client}}</li>
+          <li *ngFor="let client of user"><a>{{client}}</a></li>
         </ul>
       </div>
   </header>
