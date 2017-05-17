@@ -10,8 +10,8 @@
       <div class="dropdown pull-right online-user">
         <a class="dropdown-toggle" type="button" data-toggle="dropdown">
         Online {{user.length}}<span class="caret"></span></a>
-        <ul class="dropdown-menu" *ngFor="let client of user">
-          <li><a>{{client}}</a></li>
+        <ul class="dropdown-menu">
+          <li *ngFor="let client of user"><a>{{client}}</a></li>
         </ul>
       </div>
   </header>
