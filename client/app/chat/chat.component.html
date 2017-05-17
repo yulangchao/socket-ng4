@@ -8,7 +8,7 @@
       Chat Web
       <a class="chat-home" routerLink="/"><i class="fa fa-home pull-right"></i></a>
       <div class="dropdown pull-right online-user">
-        <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+        <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">
         Online {{user.length}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li *ngFor="let client of user">{{client}}</li>
