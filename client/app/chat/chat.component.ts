@@ -73,7 +73,6 @@ export class ChatComponent {
 
   ngOnDestroy() {
     if (localStorage.getItem('token')) {
-      this.chatService.sendMessage(JSON.parse(localStorage.getItem('token')).local.name+" left!!!");
 
       this.connection.unsubscribe();
       }
