@@ -33,6 +33,7 @@ export class ChatComponent {
   constructor(private router: Router, public chatService: ChatService, public toast: ToastComponent) {
       console.log('Chat constructor go!');
       if (localStorage.getItem('token')) {
+
             this.chatData.name = JSON.parse(localStorage.getItem('token')).local.name;
 
             chatService.getAll()
@@ -47,30 +48,35 @@ export class ChatComponent {
                 });
       } else {
          this.chatData.name = "";
-        router.navigate(['']);
+         router.navigate(['']);
       }
 
   }
 
   ngOnInit() {
-    this.connection = this.chatService.getMessages().subscribe(message => {
-      if (message["type"] == 'userlist' ){
-          this.user = message["text"].split(',');
-          this.toast.setMessage(message["event"], 'info');
-          console.log(message["event"]);
-      }else {
-      this.mes.name = message["text"].split(",")[0];
-      this.mes.date = message["text"].split(",")[1];
-      this.mes.text = message["text"].split(",")[2];
-      this.chats.push(this.mes);
-      }
-    });
-    this.chatService.sendMessage(JSON.parse(localStorage.getItem('token')).local.name+" added!!!");
+    if (localStorage.getItem('token')) {
+        this.connection = this.chatService.getMessages().subscribe(message => {
+          if (message["type"] == 'userlist' ){
+              this.user = message["text"].split(',');
+              this.toast.setMessage(message["event"], 'info');
+              console.log(message["event"]);
+          }else {
+          this.mes.name = message["text"].split(",")[0];
+          this.mes.date = message["text"].split(",")[1];
+          this.mes.text = message["text"].split(",")[2];
+          this.chats.push(this.mes);
+          }
+        });
+        this.chatService.sendMessage(JSON.parse(localStorage.getItem('token')).local.name+" added!!!");
+    }
   }
 
   ngOnDestroy() {
-    this.chatService.sendMessage(JSON.parse(localStorage.getItem('token')).local.name+" left!!!");
-    this.connection.unsubscribe();
+    if (localStorage.getItem('token')) {
+      this.chatService.sendMessage(JSON.parse(localStorage.getItem('token')).local.name+" left!!!");
+
+      this.connection.unsubscribe();
+      }
   }
 
   createChat() {

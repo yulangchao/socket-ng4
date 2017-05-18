@@ -7,7 +7,7 @@
   <header id="chat-header" class="row panel-heading">
       Chat Web
       <a class="chat-home" routerLink="/"><i class="fa fa-home pull-right"></i></a>
-      <div class="dropdown pull-right online-user">
+      <div class="dropdown pull-right online-user visible-xs">
         <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">
         Online {{user.length}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -17,7 +17,11 @@
   </header>
   <!-- TODO LIST -->
   <div id="todo-list"  chat-body class="row panel-body">
-      <div *ngIf="chatData.name != ''"  #scrollMe id="chatlist"  angular2-auto-scroll  lock-y-offset="10" observe-attributes>
+      <ul class="col-sm-2 hidden-xs userlist">
+          <li class="row" *ngFor="let client of user; let i = index"> <img class="col-sm-6" src="http://bootdey.com/img/Content/user_{{i+1}}.jpg" alt=""><p class="col-sm-6">{{client}}<br>admin</p></li>
+
+      </ul>
+      <div class="col-sm-10 col-xs-12" *ngIf="chatData.name != ''"  #scrollMe id="chatlist"  angular2-auto-scroll  lock-y-offset="10" observe-attributes>
 
           <!-- LOOP OVER THE chats IN $scope.chats -->
           <ul class="chat">

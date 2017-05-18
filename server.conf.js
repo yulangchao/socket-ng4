@@ -26,25 +26,37 @@ let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let user = [];
+let context = [];
 io.on('connection', (socket) => {
-  console.log('user connected');
+  console.log('user connected!');
 
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log('user disconnected!');
+    let tpu = user[context.indexOf(socket.client.id)];
+    user.splice(context.indexOf(socket.client.id), 1);
+    context.splice(context.indexOf(socket.client.id), 1);
+      //      console.log(user.toString());
+      //  console.log(context.toString());
+      console.log(tpu + " disconnected!");
+       io.emit('message', {type:'userlist', text: user.toString(), event: tpu + " left the room"});
   });
 
   socket.on('add-message', (message) => {
-    console.log(message);
     if(message.indexOf("added!!!") >=0){
        if (user.indexOf(message.split(' ')[0]) < 0){
           user.push(message.split(' ')[0]);
+          context.push(socket.client.id);
        }
-       console.log(user.toString());
-       io.emit('message', {type:'userlist', text: user.toString(), event: message});
-    }else if(message.indexOf("left!!!") >=0){
-         user.splice(user.indexOf(message.split(' ')[0]), 1);
-         io.emit('message', {type:'userlist', text: user.toString(), event: message});
-    }else {
+      //  console.log(user.toString());
+      //  console.log(context.toString());
+      console.log(message.split(' ')[0] + " connected!");
+       io.emit('message', {type:'userlist', text: user.toString(), event: message.split(' ')[0] + " join the room"});
+    }
+    // else if(message.indexOf("left!!!") >=0){
+    //     //  user.splice(user.indexOf(message.split(' ')[0]), 1);
+    //     //  io.emit('message', {type:'userlist', text: user.toString(), event: message});
+    // }
+    else {
        io.emit('message', {type:'new-message', text: message});
     }
   });
@@ -69,7 +81,7 @@ const session =require('express-session');
 process.env.MONGO_URI = "mongodb://localhost:27017/daigou";
 
 // Set the port for this app
-let port = process.env.PORT || 80;
+let port = process.env.PORT || 3000;
 
 // Load Mongoose config file for connecting to MongoDB instance
 const mongooseConf =require('./config/mongoose.conf.js');

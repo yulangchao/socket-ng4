@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ChatService {
 
-  private url = 'http://us.richardyych.cc:80';
+  private url = '127.0.0.1:3000';
   private socket;
 
   constructor(public http:Http) {
