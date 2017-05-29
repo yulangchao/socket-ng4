@@ -11,7 +11,7 @@ import { RukuComponent } from './ruku/ruku.component';
 import { ChukuComponent } from './chuku/chuku.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ChatComponent } from './chat/chat.component';
-
+import { StockComponent } from './stock/stock.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,8 +22,9 @@ const routes: Routes = [
   { path: 'item', component: ItemComponent },
   { path: 'ruku', component: RukuComponent },
   { path: 'chuku', component: ChukuComponent },
-  { path: 'summary', component: SummaryComponent }, 
+  { path: 'summary', component: SummaryComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'stock', component: StockComponent },
 ];
 
 @NgModule({

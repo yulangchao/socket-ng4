@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {HttpModule, Http} from "@angular/http";
+import { JsonpModule, HttpModule, Http} from "@angular/http";
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {NgxAutoScroll} from "ngx-auto-scroll/lib/ngx-auto-scroll.directive";
 import {Angular2AutoScroll} from "angular2-auto-scroll/lib/angular2-auto-scroll.directive";
@@ -22,7 +22,7 @@ import { RukuComponent } from './ruku/ruku.component';
 import { ChukuComponent } from './chuku/chuku.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ChatComponent } from './chat/chat.component';
-
+import { StockComponent } from './stock/stock.component';
 
 //service
 
@@ -33,6 +33,8 @@ import { RukuService } from './ruku/ruku.service';
 import { ChukuService } from './chuku/chuku.service';
 import { SummaryService } from './summary/summary.service';
 import { ChatService } from './chat/chat.service';
+import { StockService } from './stock/stock.service';
+
 
 //directive
 import { ChatDirective } from './chat/chat.directive';
@@ -56,7 +58,8 @@ export function HttpLoaderFactory(http: Http) {
     ChatComponent,
     NgxAutoScroll,
     ChatDirective,
-    Angular2AutoScroll
+    Angular2AutoScroll,
+    StockComponent
   ],
   imports: [
     AppRoutingModule,
@@ -64,6 +67,7 @@ export function HttpLoaderFactory(http: Http) {
     BrowserModule,
     HttpModule,
     Ng2SmartTableModule,
+    JsonpModule,
     TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -79,7 +83,8 @@ export function HttpLoaderFactory(http: Http) {
     RukuService,
     ChukuService,
     SummaryService,
-    ChatService
+    ChatService,
+    StockService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
