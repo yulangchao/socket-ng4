@@ -8,9 +8,9 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "start": "node server.js",
+    "prod": "node server.js",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"nodemon\"",
-    "prod": "concurrently \"mongod\" \"ng build -aot -prod && node server.js\"",
+    "start": "concurrently \"mongod\" \"ng build -aot -prod && node server.js\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
