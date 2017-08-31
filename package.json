@@ -10,7 +10,7 @@
     "build": "ng build",
     "prod": "node server.js",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"nodemon\"",
-    "start": "concurrently \"mongod\" \"ng build && node server.js\"",
+    "start": "ng build && node server.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
