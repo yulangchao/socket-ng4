@@ -6,7 +6,6 @@ import { SharedModule } from './shared/shared.module';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { JsonpModule, HttpModule, Http} from "@angular/http";
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import {NgxAutoScroll} from "ngx-auto-scroll/lib/ngx-auto-scroll.directive";
 //component
 
 
@@ -55,7 +54,6 @@ export function HttpLoaderFactory(http: Http) {
     ChukuComponent,
     SummaryComponent,
     ChatComponent,
-    NgxAutoScroll,
     ChatDirective,
     StockComponent
   ],
