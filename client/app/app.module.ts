@@ -6,6 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { JsonpModule, HttpModule, Http} from "@angular/http";
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import {NgxPaginationModule} from 'ngx-pagination';
 //component
 
 
@@ -59,6 +60,7 @@ export function HttpLoaderFactory(http: Http) {
   ],
   imports: [
     AppRoutingModule,
+    NgxPaginationModule,
     SharedModule,
     BrowserModule,
     HttpModule,

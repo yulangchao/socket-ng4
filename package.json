@@ -43,6 +43,7 @@
     "morgan": "^1.8.1",
     "ng2-smart-table": "^1.1.0",
     "ngx-auto-scroll": "^1.0.13",
+    "ngx-pagination": "^3.0.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "rxjs": "^5.1.0",

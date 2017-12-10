@@ -14,6 +14,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 export class ItemComponent {
 
   // Initialize our `itemData.text` to an empty `string`
+  p: number = 1;
   itemData = {
     name: '',
     price: 0,

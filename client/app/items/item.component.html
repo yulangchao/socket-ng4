@@ -43,7 +43,7 @@
             <th>{{ 'ITEM.EDIT' | translate  }}</th>
             <th>{{ 'ITEM.DELETE' | translate  }}</th>
           </thead>
-          <tbody *ngFor="let item of items.slice(((items.length-shows)<0 ? 0 : (items.length-shows)),items.length).reverse()">
+          <tbody *ngFor="let item of items.reverse() | paginate: { itemsPerPage: 2, currentPage: p }">
 
             <!--<tr *ngIf="item.name.indexOf(filter)>=0">-->
             <tr *ngIf="item.name.indexOf(filter) >= 0">
@@ -155,7 +155,7 @@
           </tbody>
 
         </table>
-
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
         <div class="clearfix"></div>
 
       </div>
