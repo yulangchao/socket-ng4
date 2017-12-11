@@ -25,7 +25,8 @@ export class ItemComponent {
 
   private filter: string = '';
   private shows: number = 5;
-  private items: Array<ItemComponent> = [];
+  private items: Array<any> = [];
+  private origins: Array<any> = [];
   private rukus: Array<any> = [];
   private chukus: Array<any> = [];
   private arrays: Array<number> = [];
@@ -47,6 +48,7 @@ export class ItemComponent {
   getAll(){
           this.itemService.getAll().subscribe((res) => {
                       this.items = res;
+                      this.origins = res;
                       this.isLoading = false;
                       this.itemData.text = '';
                       this.itemData.name = '';
@@ -55,7 +57,9 @@ export class ItemComponent {
                       this.itemData.saleprice = 0;
            });
   }
-
+  applyFilter(){
+    this.items = this.origins.filter((item)=>{return item.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 });
+  }
 
   createItem() {
       if (JSON.parse(localStorage.getItem('token')).role === "admin") {

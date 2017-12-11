@@ -24,7 +24,7 @@
         </p>
         <div class="filter-input">
           <p>{{ 'ITEM.FILTER' | translate }}:</p>
-          <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter">
+          <input name="filter" (input)="applyFilter()" type="text" class="form-control input-md" [(ngModel)]="filter">
         </div>
 <!--loading-->
         <div class="card text-center" *ngIf="isLoading">
@@ -43,10 +43,10 @@
             <th>{{ 'ITEM.EDIT' | translate  }}</th>
             <th>{{ 'ITEM.DELETE' | translate  }}</th>
           </thead>
-          <tbody *ngFor="let item of items.reverse() | paginate: { itemsPerPage: 2, currentPage: p }">
+          <tbody *ngFor="let item of items.reverse() | paginate: { itemsPerPage: shows, currentPage: p }">
 
             <!--<tr *ngIf="item.name.indexOf(filter)>=0">-->
-            <tr *ngIf="item.name.indexOf(filter) >= 0">
+            <tr>
               <td>{{item.name}}</td>
               <td>{{item.price}}</td>
               <td>{{item.saleprice}}</td>
@@ -155,7 +155,8 @@
           </tbody>
 
         </table>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="text-center"><pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
         <div class="clearfix"></div>
 
       </div>
