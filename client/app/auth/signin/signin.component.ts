@@ -18,7 +18,7 @@ export class SignInComponent {
 	error: string;
 
 	constructor(private router: Router, private authService: AuthService){
-		if (localStorage.getItem('token')) {
+		if (authService.isAuthenticate) {
 			router.navigate(['']);
 		}
 	}
@@ -34,7 +34,7 @@ export class SignInComponent {
 			this.authService.signin(this.signinData.username, this.signinData.password)
                 .subscribe(
 					data => {
-						location.reload();
+						this.router.navigate(['']);
 					},
 					error => {
 						console.log(error);

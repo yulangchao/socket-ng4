@@ -15,22 +15,22 @@
                     <li routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/" >{{ 'MENU.HOME' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/item" >{{ 'MENU.ITEM' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/ruku" >{{ 'MENU.RUKU' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/chuku" >{{ 'MENU.CHUKU' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/summary" >{{ 'MENU.SUMMARY' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/chat" >{{ 'MENU.CHAT' | translate }}</a>
                     </li>
-                    <!-- <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <!-- <li *ngIf="authService.isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                         <a routerLink="/stock" >{{ 'MENU.STOCK' | translate }}</a>
                     </li> -->
                 </ul>
@@ -41,9 +41,9 @@
                           <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
                         </select>
                     </li>
-                    <li *ngIf="!isAuthenticate"><a routerLink="/signup"><span class="glyphicon glyphicon-user"></span> {{ 'MENU.SIGNUP' | translate }}</a></li>
-                    <li *ngIf="!isAuthenticate"><a routerLink="/signin"><span class="glyphicon glyphicon-log-in"></span> {{ 'MENU.LOGIN' | translate }}</a></li>
-                    <li *ngIf="isAuthenticate"><a (click)="authService.logout()"><span class="glyphicon glyphicon-log-out"></span> {{ 'MENU.LOGOUT' | translate }}</a></li>
+                    <li *ngIf="!authService.isAuthenticate"><a routerLink="/signup"><span class="glyphicon glyphicon-user"></span> {{ 'MENU.SIGNUP' | translate }}</a></li>
+                    <li *ngIf="!authService.isAuthenticate"><a routerLink="/signin"><span class="glyphicon glyphicon-log-in"></span> {{ 'MENU.LOGIN' | translate }}</a></li>
+                    <li *ngIf="authService.isAuthenticate"><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> {{ 'MENU.LOGOUT' | translate }}</a></li>
                 </ul>
             </div>
         </div>

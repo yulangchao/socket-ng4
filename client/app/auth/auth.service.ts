@@ -10,8 +10,13 @@ export class AuthService{
 	// for change the navbar state between online and offline
 	private authenticate = new Subject<boolean>();
 	authenticateState$ = this.authenticate.asObservable();
+	public isAuthenticate: boolean;
 
-	constructor(@Inject(Http) private http: Http){}
+	constructor(@Inject(Http) private http: Http){
+		if (localStorage.getItem('token')) {
+			this.isAuthenticate = true;
+		}
+	}
 
 	signup(data): Observable<any> {
 		let headers = new Headers();
@@ -30,12 +35,15 @@ export class AuthService{
             .map((response: Response) => {
 				// login successful if there's a jwt token in the response
 				let user = response.json();
+				
 				if (user) {
 
 					// store user details and jwt token in local storage to keep user logged in between page refreshes
-          console.log(user);
-          delete user["local"]["password"];
-          delete user["local"]["username"];
+
+					delete user["local"]["password"];
+					delete user["local"]["username"];
+					this.isAuthenticate = true;
+					console.log(this.isAuthenticate);
 					this.saveToken(JSON.stringify(user));
 				}
 			});
@@ -45,7 +53,7 @@ export class AuthService{
 	logout(): void {
       	localStorage.removeItem('token');
       	this.authenticate.next(false);
-		location.reload();
+		this.isAuthenticate = false;
     }
 
     // save the token in localStorage and change the navbar state
@@ -54,15 +62,5 @@ export class AuthService{
 		this.authenticate.next(true);
 	}
 
-	// return if the user is authenticate
-	isAuthenticate(): boolean {
-		let isAuth: boolean;
-		if(localStorage.getItem('token')){
-			isAuth = true;
-		}else{
-			isAuth = false;
-		}
-		return isAuth;
-	}
 
 }

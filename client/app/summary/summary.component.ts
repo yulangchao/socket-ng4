@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {SummaryService} from './summary.service';
-
+import { AuthService } from '../auth/auth.service';
 import {Router} from '@angular/router';
 // Import NgFor directive
 
@@ -31,9 +31,9 @@ export class SummaryComponent {
   private arrays: Array<any> = [];
   private outcome: number = 0;
   private income: number = 0;
-  constructor(private router: Router, public summaryService: SummaryService) {
+  constructor(private router: Router, public summaryService: SummaryService, public authService: AuthService) {
     console.log('Summary constructor go!');
-      if (localStorage.getItem('token')) {
+      if (authService.isAuthenticate) {
 
           summaryService.getAllruku().subscribe((res) => {
             // Populate our `summary` array with the `response` data

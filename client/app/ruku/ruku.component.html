@@ -26,7 +26,7 @@
         <p>Total: {{a}}</p>
         <div class="filter-input">
           <p> Filter by Product Name:</p>
-          <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter">
+          <input name="filter" (change)="applyFilter()"type="text" class="form-control input-md" [(ngModel)]="filter">
         </div>
 
 <!--loading-->
@@ -51,8 +51,8 @@
             <th>Edit</th>
             <th>Delete</th>
           </thead>
-          <tbody *ngFor="let ruku of rukus.slice(((rukus.length-shows)<0 ? 0 : (rukus.length-shows)),rukus.length).reverse(); let i = index" id="datas">
-            <tr *ngIf="ruku.name.indexOf(filter) >= 0">
+          <tbody *ngFor="let ruku of rukus.reverse() | paginate: { itemsPerPage: shows, currentPage: p }; let i = index " id="datas">
+            <tr>
               <td>{{ruku.date}}</td>
               <td>{{ruku.user}}</td>
               <td>{{ruku.name}}</td>
@@ -184,7 +184,8 @@
           </tbody>
 
         </table>
-
+        <div class="text-center"><pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
         <div class="clearfix"></div>
 
       </div>

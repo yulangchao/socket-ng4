@@ -24,7 +24,7 @@ export class SignUpComponent {
 	password_confirm: string;
 
 	constructor(private router: Router, private authService: AuthService){
-		if (localStorage.getItem('token')) {
+		if (authService.isAuthenticate) {
 			router.navigate(['']);
 		}
 	}

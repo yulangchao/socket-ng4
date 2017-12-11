@@ -1,12 +1,12 @@
 <h3 class="text-center">Warehouse App</h3>
 <div class="row">
-<div class="col-sm-4 col-sm-offset-4 alert alert-warning text-center" role="alert" *ngIf="!islog()" >
+<div class="col-sm-4 col-sm-offset-4 alert alert-warning text-center" role="alert" *ngIf="!authService.isAuthenticate" >
   <strong>Warning!</strong> You have to log in to see contents!
 </div>
 <div class="col-sm-4"></div>
 </div>
 <br>
-  <div class="container homepage" *ngIf="islog()">
+  <div class="container homepage" *ngIf="authService.isAuthenticate">
 
   <br>
   <div class="row">

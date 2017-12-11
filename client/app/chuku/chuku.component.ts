@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {ChukuService} from './chuku.service';
-
+import { AuthService } from '../auth/auth.service';
 import {ItemComponent} from '../items/item.component';
 // Import NgFor directive
 import { ToastComponent } from '../shared/toast/toast.component';
@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 export class ChukuComponent {
 
   // Initialize our `chukuData.text` to an empty `string`
+  p: number = 1;
   chukuData = {
     user: '',
     name: '',
@@ -28,18 +29,21 @@ export class ChukuComponent {
   private shows: number = 5;
   private selected: number = 3;
   private chukus: Array<any> = [];
+  private origins: Array<any> = [];
   private items: Array<any> = [];
   private array: Array<any> = [];
   private count: number = 0;
   private a = 0;
   private filter: string = '';
   private isLoading: boolean = true;
-  constructor(private router: Router, public chukuService: ChukuService, public toast: ToastComponent) {
-    console.log('Chuku constructor go!');
-      if (localStorage.getItem('token')) {
+  constructor(private router: Router, public chukuService: ChukuService, public toast: ToastComponent, public authService: AuthService) {
+      if (authService.isAuthenticate) {
         chukuService.getAll().subscribe((res) => {
               // Populate our `chuku` array with the `response` data
               this.chukus = res;
+              this.origins = res;
+              this.applyFilter();
+              this.a = 0;
               for (let chuku of res){
                  this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
               }
@@ -57,6 +61,11 @@ export class ChukuComponent {
       }
   }
 
+  applyFilter(){
+    
+    this.chukus = this.origins.filter((chuku)=>{return (chuku.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ) || (chuku.user.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 )});
+  }
+
   createChuku() {
     if (JSON.parse(localStorage.getItem('token')).role === "admin") {
       this.chukuData.name = this.chukuData.name.split('+')[1];
@@ -65,6 +74,12 @@ export class ChukuComponent {
 
           // Populate our `chuku` array with the `response` data
           this.chukus = res;
+          this.origins = res;
+          this.a = 0;
+          for (let chuku of res){
+             this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
+          }
+          this.applyFilter();
           this.toast.setMessage('Stock Out is added successfully.', 'success');
           this.chukuData.name = '';
           this.chukuData.price = null;
@@ -83,6 +98,12 @@ export class ChukuComponent {
 
           // Populate our `chuku` array with the `response` data
           this.chukus = res;
+          this.origins = res;
+          this.applyFilter();
+          this.a = 0;
+          for (let chuku of res){
+             this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
+          }
           this.toast.setMessage('Stock Out is deleted successfully.', 'success');
         });
     }
@@ -101,7 +122,13 @@ export class ChukuComponent {
       this.chukuData.name = this.chukuData.name.split('+')[1];
       this.chukuService.updateChuku(chuku._id,this.chukuData)
         .subscribe((res) => {
-             this.chukus[this.chukus.indexOf(chuku)] = res;
+             this.origins[this.origins.indexOf(chuku)] = res;
+             this.chukus = this.origins;
+             this.a = 0;
+             for (let chuku of this.origins){
+                this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
+             }
+             this.applyFilter();
              this.toast.setMessage('Stock Out is edited successfully.', 'success');
         });
     }

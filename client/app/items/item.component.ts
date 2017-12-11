@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ItemService} from './item.service';
 import {Router} from '@angular/router';
-
+import { AuthService } from '../auth/auth.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 // Create metadata with the `@Component` decorator
 @Component({
@@ -32,9 +32,9 @@ export class ItemComponent {
   private arrays: Array<number> = [];
   private clicked: boolean = false;
   private isLoading: boolean = true;
-  constructor(private router: Router, public itemService: ItemService, public toast: ToastComponent) {
-    console.log('Item constructor go!');
-      if (localStorage.getItem('token')) {
+  constructor(private router: Router, public itemService: ItemService, public toast: ToastComponent, public authService: AuthService) {
+
+      if (authService.isAuthenticate) {
 
           this.getAll();
       } else {
@@ -68,6 +68,8 @@ export class ItemComponent {
           res => {
             // Populate our `item` array with the `response` data
             this.items = res;
+            this.origins = res;
+            this.applyFilter();
             this.toast.setMessage('Product is added successfully.', 'success');
             // Reset `item` input
             this.itemData.text = '';
@@ -90,6 +92,8 @@ export class ItemComponent {
 
               // Populate our `item` array with the `response` data
               this.items = res;
+              this.origins = res;
+              this.applyFilter();
               this.toast.setMessage('Product is deleted successfully.', 'success');
             },
             error => console.log(error._body)
@@ -103,7 +107,9 @@ export class ItemComponent {
       this.itemService.updateItem(item._id,this.itemData)
         .subscribe((res) => {
 
-             this.items[this.items.indexOf(item)] = res;
+             this.origins[this.origins.indexOf(item)] = res;
+             this.items = this.origins;
+             this.applyFilter();
              this.toast.setMessage('Product is edited successfully.', 'success');
         });
     }

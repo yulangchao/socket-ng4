@@ -24,7 +24,7 @@
         </p>
         <div class="filter-input">
           <p>{{ 'ITEM.FILTER' | translate }}:</p>
-          <input name="filter" (input)="applyFilter()" type="text" class="form-control input-md" [(ngModel)]="filter">
+          <input name="filter" (change)="applyFilter()" type="text" class="form-control input-md" [(ngModel)]="filter">
         </div>
 <!--loading-->
         <div class="card text-center" *ngIf="isLoading">

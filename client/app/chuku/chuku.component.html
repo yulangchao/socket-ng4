@@ -24,7 +24,7 @@
                 </p>
         <p>Total: {{a}}</p>
 <!--filter-->
-        <div class="filter-input"><p> Filter by Product Name or Client:</p> <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter"></div>
+        <div class="filter-input"><p> Filter by Product Name or Client:</p> <input name="filter" (change)="applyFilter()" type="text" class="form-control input-md" [(ngModel)]="filter"></div>
 <!--loading-->
      
         <div class="card text-center" *ngIf="isLoading">
@@ -47,9 +47,9 @@
             <th>Edit</th>
             <th>Delete</th>
           </thead>
-          <tbody *ngFor="let chuku of chukus.slice(((chukus.length-shows)<0 ? 0 : (chukus.length-shows)),chukus.length).reverse()">
+          <tbody *ngFor="let chuku of chukus.reverse() | paginate: { itemsPerPage: shows, currentPage: p }">
 
-            <tr *ngIf="chuku.name.indexOf(filter) >= 0 || chuku.user.indexOf(filter) >= 0">
+            <tr>
               <td>{{chuku.date}}</td>
               <td>{{chuku.user}}</td>
               <td>{{chuku.name}}</td>
@@ -186,7 +186,8 @@
           </tbody>
 
         </table>
-
+        <div class="text-center"><pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
         <div class="clearfix"></div>
 
       </div>

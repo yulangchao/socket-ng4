@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import { AuthService } from './auth/auth.service';
-
+import {Router} from '@angular/router';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -16,18 +16,21 @@ export class AppComponent {
     private authService: any;
     private navbutton: boolean = false;
 
-    constructor(private translate: TranslateService, authService: AuthService) {
+    constructor(private router: Router, private translate: TranslateService, authService: AuthService) {
         translate.addLangs(["en", "cn"]);
         translate.setDefaultLang('en');
 
         let browserLang = translate.getBrowserLang();
         translate.use(browserLang.match(/en|cn/) ? browserLang : 'en');
         this.authService = authService;
-        this.isAuthenticate = authService.isAuthenticate();
-
     }
 
     isChat(){
       return window.location.pathname === '/chat';
+    }
+
+    logout(){
+      this.router.navigate(['']);
+      this.authService.logout();
     }
  }
