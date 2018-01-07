@@ -45,7 +45,7 @@ module.exports = function(mongoose) {
 
   // Connect to our MongoDB database using the MongoDB
   // connection URI from our predefined environment variable
-  mongoose.connect('mongodb://richardyych:2E8Evan@ds161823.mlab.com:61823/heroku_955m2hr5', (error) => {
+  mongoose.connect('mongodb://yyu:2E8Evan@ds053954.mlab.com:53954/heroku_0dmlrm4v', (error) => {
 
     if (error)
       throw error;
